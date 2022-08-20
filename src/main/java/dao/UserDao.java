@@ -26,7 +26,7 @@ public class UserDao {
 				user.setEmail(resultSet.getString("email"));
 				user.setPassword(resultSet.getString("password"));
 				user.setFullname(resultSet.getString("fullname"));
-				user.setRole(roleDao.findRoleById(resultSet.getInt("role_id")));
+				user.setRole(roleDao.findById(resultSet.getInt("role_id")));
 				list.add(user);
 			}
 			connection.close();
@@ -35,6 +35,30 @@ public class UserDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public User findById(int id) {
+		User user = null;
+		Connection connection = MySQLConnection.getConnection();
+		String sql = "select * from user where id = ?";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, id);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				user = new User();
+				user.setId(resultSet.getInt("id"));
+				user.setEmail(resultSet.getString("email"));
+				user.setPassword(resultSet.getString("password"));
+				user.setFullname(resultSet.getString("fullname"));
+				user.setRole(roleDao.findById(resultSet.getInt("role_id")));
+			}
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return user;
 	}
 
 	public void save(User user) {
@@ -69,7 +93,7 @@ public class UserDao {
 				user.setEmail(resultSet.getString("email"));
 				user.setPassword(resultSet.getString("password"));
 				user.setFullname(resultSet.getString("fullname"));
-				user.setRole(roleDao.findRoleById(resultSet.getInt("role_id")));
+				user.setRole(roleDao.findById(resultSet.getInt("role_id")));
 			}
 			connection.close();
 		} catch (SQLException e) {

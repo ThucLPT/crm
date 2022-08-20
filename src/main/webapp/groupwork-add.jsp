@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,20 +41,16 @@
 					<i class="fa fa-bars"></i>
 				</a>
 				<div class="top-left-part">
-					<a class="logo" href="index.html">
-						<b> 
-							<img src="plugins/images/pixeladmin-logo.png" alt="home" />
-						</b>
-						<span class="hidden-xs">
-							<img src="plugins/images/pixeladmin-text.png" alt="home" />
-						</span>
+					<a class="logo" href="index.html"> 
+						<b> <img src="plugins/images/pixeladmin-logo.png" alt="home" /> </b>
+						<span class="hidden-xs"> <img src="plugins/images/pixeladmin-text.png" alt="home" /> </span>
 					</a>
 				</div>
 				<ul class="nav navbar-top-links navbar-left m-l-20 hidden-xs">
 					<li>
 						<form role="search" class="app-search hidden-xs">
 							<input type="text" placeholder="Search..." class="form-control">
-							<a href=""> <i class="fa fa-search"></i> </a>
+							<a href=""> <i class="fa fa-search"></i></a>
 						</form>
 					</li>
 				</ul>
@@ -88,7 +83,7 @@
 			<div class="container-fluid">
 				<div class="row bg-title">
 					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-						<h4 class="page-title">Thêm mới thành viên</h4>
+						<h4 class="page-title">Thêm mới dự án</h4>
 					</div>
 				</div>
 				<!-- /.row -->
@@ -99,37 +94,27 @@
 						<div class="white-box">
 							<form class="form-horizontal form-material" method="post">
 								<div class="form-group">
-									<label class="col-md-12">Full Name</label>
+									<label class="col-md-12">Tên dự án</label>
 									<div class="col-md-12">
-										<input type="text" class="form-control form-control-line" name="fullname">
+										<input type="text" class="form-control form-control-line" name="name">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="example-email" class="col-md-12">Email</label>
+									<label class="col-md-12">Ngày bắt đầu</label>
 									<div class="col-md-12">
-										<input type="email" class="form-control form-control-line" name="email" id="example-email">
+										<input type="date" class="form-control form-control-line" name="startdate">
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-12">Password</label>
+									<label class="col-md-12">Ngày kết thúc</label>
 									<div class="col-md-12">
-										<input type="password" class="form-control form-control-line" name="password">
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-12">Role</label>
-									<div class="col-sm-12">
-										<select class="form-control form-control-line" name="role">
-											<c:forEach var="role" items="${roles}">
-												<option value="${role.id}">${role.description}</option>
-											</c:forEach>
-										</select>
+										<input type="date" class="form-control form-control-line" name="enddate">
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="col-sm-12">
-										<button type="submit" class="btn btn-success">Add User</button>
-										<a href="user-table" class="btn btn-primary">Quay lại</a>
+										<button type="submit" class="btn btn-success">Lưu lại</button>
+										<a href="groupwork" class="btn btn-primary">Quay lại</a>
 									</div>
 								</div>
 							</form>

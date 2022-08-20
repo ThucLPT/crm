@@ -1,6 +1,7 @@
 package filter;
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -11,6 +12,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.User;
 
 /**
  * Servlet Filter implementation class AuthFilter
@@ -42,8 +45,13 @@ public class AuthFilter implements Filter {
 		// place your code here
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
+		User user = (User) req.getSession().getAttribute("user");
+		String path = req.getServletPath();
+		if (user == null && !path.contains("login"))
+			res.sendRedirect("login");
+		else
+			// pass the request along the filter chain
+			chain.doFilter(request, response);
 	}
 
 	/**

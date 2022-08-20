@@ -47,12 +47,13 @@ public class LoginController extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		User user = userDao.login(email, password);
+		request.getSession().setAttribute("user", user);
 		String roleName = user.getRole().getName();
 		if (roleName.equals("ROLE_ADMIN"))
-			response.sendRedirect(request.getContextPath() + "/admin");
+			response.sendRedirect("user-table");
 		else if (roleName.equals("ROLE_LEADER"))
-			response.sendRedirect(request.getContextPath() + "/leader");
+			response.sendRedirect("groupwork");
 		else if (roleName.equals("ROLE_MEMBER"))
-			response.sendRedirect(request.getContextPath() + "/member");
+			response.sendRedirect("member");
 	}
 }

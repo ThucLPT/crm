@@ -7,6 +7,7 @@ public class Job {
 	private String name;
 	private LocalDate startDate;
 	private LocalDate endDate;
+	private User leader;
 
 	public int getId() {
 		return id;
@@ -38,5 +39,13 @@ public class Job {
 
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
+	}
+
+	public User getLeader() {
+		return leader;
+	}
+
+	public void setLeader(User leader) {
+		this.leader = leader;
 	}
 }

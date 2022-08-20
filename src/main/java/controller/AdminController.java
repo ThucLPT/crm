@@ -59,7 +59,7 @@ public class AdminController extends HttpServlet {
 		user.setEmail(request.getParameter("email"));
 		user.setPassword(request.getParameter("password"));
 		user.setFullname(request.getParameter("fullname"));
-		user.setRole(roleDao.findRoleById(Integer.valueOf(request.getParameter("role"))));
+		user.setRole(roleDao.findById(Integer.valueOf(request.getParameter("role"))));
 		userDao.save(user);
 		response.sendRedirect("user-table");
 	}

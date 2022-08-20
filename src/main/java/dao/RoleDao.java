@@ -33,7 +33,7 @@ public class RoleDao {
 		return list;
 	}
 
-	public Role findRoleById(int id) {
+	public Role findById(int id) {
 		Role role = null;
 		Connection connection = MySQLConnection.getConnection();
 		String sql = "select * from role where id = ?";

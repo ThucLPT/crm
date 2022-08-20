@@ -7,7 +7,7 @@ public class Task {
 	private String name;
 	private LocalDate startDate;
 	private LocalDate endDate;
-	private User user;
+	private User member;
 	private Job job;
 	private Status status;
 
@@ -43,12 +43,12 @@ public class Task {
 		this.endDate = endDate;
 	}
 
-	public User getUser() {
-		return user;
+	public User getMember() {
+		return member;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setMember(User member) {
+		this.member = member;
 	}
 
 	public Job getJob() {
