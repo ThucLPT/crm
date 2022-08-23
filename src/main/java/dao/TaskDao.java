@@ -94,4 +94,19 @@ public class TaskDao {
 		}
 		return list;
 	}
+
+	public void updateStatus(Task task) {
+		Connection connection = MySQLConnection.getConnection();
+		String sql = "update task set status_id = ? where id = ?";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, task.getStatus().getId());
+			statement.setInt(2, task.getId());
+			statement.executeUpdate();
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

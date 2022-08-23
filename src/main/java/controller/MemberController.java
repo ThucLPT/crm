@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.StatusDao;
 import dao.TaskDao;
+import model.Task;
 import model.User;
 
 /**
@@ -17,6 +19,7 @@ import model.User;
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TaskDao taskDao;
+	private StatusDao statusDao;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -25,6 +28,7 @@ public class MemberController extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 		taskDao = new TaskDao();
+		statusDao = new StatusDao();
 	}
 
 	/**
@@ -42,6 +46,7 @@ public class MemberController extends HttpServlet {
 		}
 		if (path.equals("/profile-edit")) {
 			request.setAttribute("task", taskDao.findById(Integer.parseInt(request.getParameter("id"))));
+			request.setAttribute("statuses", statusDao.findAll());
 			request.getRequestDispatcher("profile-edit.jsp").forward(request, response);
 		}
 	}
@@ -53,5 +58,9 @@ public class MemberController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		Task task = taskDao.findById(Integer.parseInt(request.getParameter("id")));
+		task.setStatus(statusDao.findById(Integer.parseInt(request.getParameter("status"))));
+		taskDao.updateStatus(task);
+		response.sendRedirect("profile");
 	}
 }

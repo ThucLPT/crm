@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,7 +80,7 @@
 					<div class="col-md-2 col-12"></div>
 					<div class="col-md-8 col-xs-12">
 						<div class="white-box">
-							<form class="form-horizontal form-material">
+							<form class="form-horizontal form-material" method="post">
 								<div class="form-group">
 									<label class="col-md-12">Tên dự án</label>
 									<div class="col-md-12">
@@ -107,10 +108,17 @@
 								<div class="form-group">
 									<label class="col-md-12">Trạng thái</label>
 									<div class="col-md-12">
-										<select class="form-control form-control-line">
-											<option>Chưa thực hiện</option>
-											<option selected>Đang thực hiện</option>
-											<option>Đã hoàn thành</option>
+										<select class="form-control form-control-line" name="status">
+											<c:forEach var="status" items="${statuses}">
+												<c:choose>
+													<c:when test="${task.status.name == status.name}">
+														<option value="${status.id}" selected>${status.name}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${status.id}">${status.name}</option>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
 										</select>
 									</div>
 								</div>
