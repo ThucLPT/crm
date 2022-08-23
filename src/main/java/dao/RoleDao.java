@@ -43,7 +43,7 @@ public class RoleDao {
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				role = new Role();
-				role.setId(resultSet.getInt("id"));
+				role.setId(id);
 				role.setName(resultSet.getString("name"));
 				role.setDescription(resultSet.getString("description"));
 			}

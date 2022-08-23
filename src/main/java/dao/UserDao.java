@@ -47,7 +47,7 @@ public class UserDao {
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				user = new User();
-				user.setId(resultSet.getInt("id"));
+				user.setId(id);
 				user.setEmail(resultSet.getString("email"));
 				user.setPassword(resultSet.getString("password"));
 				user.setFullname(resultSet.getString("fullname"));
@@ -90,8 +90,8 @@ public class UserDao {
 			while (resultSet.next()) {
 				user = new User();
 				user.setId(resultSet.getInt("id"));
-				user.setEmail(resultSet.getString("email"));
-				user.setPassword(resultSet.getString("password"));
+				user.setEmail(email);
+				user.setPassword(password);
 				user.setFullname(resultSet.getString("fullname"));
 				user.setRole(roleDao.findById(resultSet.getInt("role_id")));
 			}

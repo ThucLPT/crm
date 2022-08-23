@@ -7,24 +7,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.UserDao;
+import dao.TaskDao;
 import model.User;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class MemberController
  */
-@WebServlet("/login")
-public class LoginController extends HttpServlet {
+@WebServlet(urlPatterns = { "/profile", "/profile-edit" })
+public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserDao userDao;
+	private TaskDao taskDao;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LoginController() {
+	public MemberController() {
 		super();
 		// TODO Auto-generated constructor stub
-		userDao = new UserDao();
+		taskDao = new TaskDao();
 	}
 
 	/**
@@ -34,7 +34,16 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("login.jsp").forward(request, response);
+		String path = request.getServletPath();
+		if (path.equals("/profile")) {
+			request.setAttribute("tasks",
+					taskDao.findByUserId(((User) request.getSession().getAttribute("user")).getId()));
+			request.getRequestDispatcher("profile.jsp").forward(request, response);
+		}
+		if (path.equals("/profile-edit")) {
+			request.setAttribute("task", taskDao.findById(Integer.parseInt(request.getParameter("id"))));
+			request.getRequestDispatcher("profile-edit.jsp").forward(request, response);
+		}
 	}
 
 	/**
@@ -44,16 +53,5 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		User user = userDao.login(email, password);
-		request.getSession().setAttribute("user", user);
-		String roleName = user.getRole().getName();
-		if (roleName.equals("ROLE_ADMIN"))
-			response.sendRedirect("user-table");
-		else if (roleName.equals("ROLE_LEADER"))
-			response.sendRedirect("groupwork");
-		else if (roleName.equals("ROLE_MEMBER"))
-			response.sendRedirect("profile");
 	}
 }

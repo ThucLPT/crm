@@ -73,10 +73,10 @@
 			<div class="container-fluid">
 				<div class="row bg-title">
 					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-						<h4 class="page-title">Danh sách dự án</h4>
+						<h4 class="page-title">Danh sách công việc</h4>
 					</div>
 					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-						<a href="groupwork-add" class="btn btn-sm btn-success">Thêm mới</a>
+						<a href="task-add" class="btn btn-sm btn-success">Thêm mới</a>
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
@@ -89,25 +89,31 @@
 									<thead>
 										<tr>
 											<th>STT</th>
-											<th>Tên Dự Án</th>
+											<th>Tên Công Việc</th>
+											<th>Dự Án</th>
+											<th>Người Thực Hiện</th>
 											<th>Ngày Bắt Đầu</th>
 											<th>Ngày Kết Thúc</th>
+											<th>Trạng Thái</th>
 											<th>Hành Động</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="job" items="${jobs}">
-											<tr>
-												<td>${job.id}</td>
-												<td>${job.name}</td>
-												<td>${job.startDate}</td>
-												<td>${job.endDate}</td>
-												<td>
-													<a href="#" class="btn btn-sm btn-primary">Sửa</a>
-													<a href="#" class="btn btn-sm btn-danger">Xóa</a>
-													<a href="task?id=${job.id}" class="btn btn-sm btn-info">Xem</a>
-												</td>
-											</tr>
+										<c:forEach var="task" items="${tasks}">
+												<tr>
+													<td>${task.id}</td>
+													<td>${task.name}</td>
+													<td></td>
+													<td>${task.member.fullname}</td>
+													<td>${task.startDate}</td>
+													<td>${task.endDate}</td>
+													<td>${task.status.name}</td>
+													<td>
+														<a href="#" class="btn btn-sm btn-primary">Sửa</a>
+														<a href="#" class="btn btn-sm btn-danger">Xóa</a>
+														<a href="#" class="btn btn-sm btn-info">Xem</a>
+													</td>
+												</tr>
 										</c:forEach>
 									</tbody>
 								</table>

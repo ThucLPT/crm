@@ -14,6 +14,30 @@ import model.Job;
 public class JobDao {
 	private UserDao userDao = new UserDao();
 
+	public Job findById(int id) {
+		Job job = null;
+		Connection connection = MySQLConnection.getConnection();
+		String sql = "select * from job where id = ?";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, id);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				job = new Job();
+				job.setId(id);
+				job.setName(resultSet.getString("name"));
+				job.setStartDate(resultSet.getDate("start_date").toLocalDate());
+				job.setEndDate(resultSet.getDate("end_date").toLocalDate());
+				job.setLeader(userDao.findById(resultSet.getInt("user_id")));
+			}
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return job;
+	}
+
 	public List<Job> findByUserId(int id) {
 		List<Job> list = new ArrayList<>();
 		Connection connection = MySQLConnection.getConnection();

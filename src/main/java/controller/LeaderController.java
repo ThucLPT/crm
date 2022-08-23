@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.JobDao;
+import dao.TaskDao;
 import model.Job;
 import model.User;
 
@@ -20,6 +21,7 @@ import model.User;
 public class LeaderController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private JobDao jobDao;
+	private TaskDao taskDao;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -28,6 +30,7 @@ public class LeaderController extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 		jobDao = new JobDao();
+		taskDao = new TaskDao();
 	}
 
 	/**
@@ -45,6 +48,13 @@ public class LeaderController extends HttpServlet {
 		}
 		if (path.equals("/groupwork-add"))
 			request.getRequestDispatcher("groupwork-add.jsp").forward(request, response);
+		if (path.equals("/task")) {
+			request.setAttribute("tasks", taskDao.findByJobId(Integer.parseInt(request.getParameter("id"))));
+			request.getRequestDispatcher("task.jsp").forward(request, response);
+		}
+		if (path.equals("/task-add")) {
+			request.getRequestDispatcher("task-add.jsp").forward(request, response);
+		}
 	}
 
 	/**
