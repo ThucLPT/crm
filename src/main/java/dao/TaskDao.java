@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,6 +94,24 @@ public class TaskDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public void save(Task task) {
+		Connection connection = MySQLConnection.getConnection();
+		String sql = "insert into task(name, start_date, end_date, user_id, job_id) values(?, ?, ?, ?, ?)";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, task.getName());
+			statement.setDate(2, Date.valueOf(task.getStartDate()));
+			statement.setDate(3, Date.valueOf(task.getEndDate()));
+			statement.setInt(4, task.getMember().getId());
+			statement.setInt(5, task.getJob().getId());
+			statement.executeUpdate();
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void updateStatus(Task task) {

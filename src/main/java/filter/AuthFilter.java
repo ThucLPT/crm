@@ -1,6 +1,8 @@
 package filter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -45,13 +47,27 @@ public class AuthFilter implements Filter {
 		// place your code here
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		User user = (User) req.getSession().getAttribute("user");
 		String path = req.getServletPath();
-		if (user == null && !path.contains("login"))
-			res.sendRedirect("login");
-		else
-			// pass the request along the filter chain
+		if (path.equals("/login")) {
 			chain.doFilter(request, response);
+			return;
+		}
+		User user = (User) req.getSession().getAttribute("user");
+		if (user != null) {
+			String roleName = user.getRole().getName();
+			List<String> adminUrls = Arrays.asList("/user-add", "/user-table");
+			List<String> leaderUrls = Arrays.asList("/groupwork", "/groupwork-add", "/task", "/task-add");
+			List<String> memberUrls = Arrays.asList("/profile", "/profile-edit");
+			List<String> resourceUrls = Arrays.asList("/bootstrap/", "/css/", "/js/", "/less/", "/plugins/");
+			boolean isAthorized = (roleName.equals("ROLE_ADMIN") && adminUrls.contains(path))
+					|| (roleName.equals("ROLE_LEADER") && leaderUrls.contains(path))
+					|| (roleName.equals("ROLE_MEMBER") && memberUrls.contains(path));
+			if (isAthorized || path.equals("/403") || resourceUrls.stream().anyMatch(req.getRequestURI()::contains))
+				chain.doFilter(request, response);
+			else
+				res.sendRedirect("403");
+		} else
+			res.sendRedirect("login");
 	}
 
 	/**
