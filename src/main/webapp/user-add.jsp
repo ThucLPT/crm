@@ -57,7 +57,7 @@
 								<b class="hidden-xs">${user.fullname}</b>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Đăng xuất</a></li>
+								<li><a href="logout">Đăng xuất</a></li>
 							</ul>
 						</div>
 					</li>

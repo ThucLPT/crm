@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,9 +47,14 @@ public class MemberController extends HttpServlet {
 			request.getRequestDispatcher("profile.jsp").forward(request, response);
 		}
 		if (path.equals("/profile-edit")) {
-			request.setAttribute("task", taskDao.findById(Integer.parseInt(request.getParameter("id"))));
-			request.setAttribute("statuses", statusDao.findAll());
-			request.getRequestDispatcher("profile-edit.jsp").forward(request, response);
+			List<Task> tasks = taskDao.findByUserId(((User) request.getSession().getAttribute("user")).getId());
+			long count = tasks.stream().filter(t -> t.getId() == Integer.parseInt(request.getParameter("id"))).count();
+			if (count > 0) {
+				request.setAttribute("task", taskDao.findById(Integer.parseInt(request.getParameter("id"))));
+				request.setAttribute("statuses", statusDao.findAll());
+				request.getRequestDispatcher("profile-edit.jsp").forward(request, response);
+			} else
+				response.sendRedirect("403");
 		}
 	}
 
@@ -58,9 +65,14 @@ public class MemberController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Task task = taskDao.findById(Integer.parseInt(request.getParameter("id")));
-		task.setStatus(statusDao.findById(Integer.parseInt(request.getParameter("status"))));
-		taskDao.updateStatus(task);
-		response.sendRedirect("profile");
+		List<Task> tasks = taskDao.findByUserId(((User) request.getSession().getAttribute("user")).getId());
+		long count = tasks.stream().filter(t -> t.getId() == Integer.parseInt(request.getParameter("id"))).count();
+		if (count > 0) {
+			Task task = taskDao.findById(Integer.parseInt(request.getParameter("id")));
+			task.setStatus(statusDao.findById(Integer.parseInt(request.getParameter("status"))));
+			taskDao.updateStatus(task);
+			response.sendRedirect("profile");
+		} else
+			response.sendRedirect("403");
 	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,7 +53,7 @@
 								<b class="hidden-xs">${user.fullname}</b>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Đăng xuất</a></li>
+								<li><a href="logout">Đăng xuất</a></li>
 							</ul>
 						</div>
 					</li>
@@ -83,45 +84,45 @@
 								<div class="form-group">
 									<label class="col-md-12">Dự án</label>
 									<div class="col-md-12">
-										<select class="form-control form-control-line">
-											<option>Dự án CRM</option>
-											<option>Dự án Elearning</option>
-											<option>Dự án Rạp chiếu phim</option>
+										<select class="form-control form-control-line" name="job">
+											<c:forEach var="job" items="${jobs}">
+												<option value="${job.id}">${job.name}</option>
+											</c:forEach>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-12">Tên công việc</label>
 									<div class="col-md-12">
-										<input type="text" class="form-control form-control-line">
+										<input type="text" class="form-control form-control-line" name="name">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-12">Người thực hiện</label>
 									<div class="col-md-12">
-										<select class="form-control form-control-line">
-											<option>Nguyễn Văn Tèo</option>
-											<option>Trần Thị Lan</option>
-											<option>Cao Ngọc Hiếu</option>
+										<select class="form-control form-control-line" name="member">
+											<c:forEach var="member" items="${members}">
+												<option value="${member.id}">${member.fullname}</option>
+											</c:forEach>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-12">Ngày bắt đầu</label>
 									<div class="col-md-12">
-										<input type="date" class="form-control form-control-line">
+										<input type="date" class="form-control form-control-line" name="startdate">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-12">Ngày kết thúc</label>
 									<div class="col-md-12">
-										<input type="date" class="form-control form-control-line">
+										<input type="date" class="form-control form-control-line" name="enddate">
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="col-sm-12">
 										<button type="submit" class="btn btn-success">Lưu lại</button>
-										<a href="task" class="btn btn-primary">Quay lại</a>
+										<!-- <a href="task" class="btn btn-primary">Quay lại</a> -->
 									</div>
 								</div>
 							</form>

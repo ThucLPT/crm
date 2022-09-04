@@ -59,10 +59,11 @@ public class AuthFilter implements Filter {
 			List<String> leaderUrls = Arrays.asList("/groupwork", "/groupwork-add", "/task", "/task-add");
 			List<String> memberUrls = Arrays.asList("/profile", "/profile-edit");
 			List<String> resourceUrls = Arrays.asList("/bootstrap/", "/css/", "/js/", "/less/", "/plugins/");
-			boolean isAthorized = (roleName.equals("ROLE_ADMIN") && adminUrls.contains(path))
+			boolean isAuthorized = (roleName.equals("ROLE_ADMIN") && adminUrls.contains(path))
 					|| (roleName.equals("ROLE_LEADER") && leaderUrls.contains(path))
 					|| (roleName.equals("ROLE_MEMBER") && memberUrls.contains(path));
-			if (isAthorized || path.equals("/403") || resourceUrls.stream().anyMatch(req.getRequestURI()::contains))
+			if (isAuthorized || path.equals("/logout") || path.equals("/403")
+					|| resourceUrls.stream().anyMatch(req.getRequestURI()::contains))
 				chain.doFilter(request, response);
 			else
 				res.sendRedirect("403");

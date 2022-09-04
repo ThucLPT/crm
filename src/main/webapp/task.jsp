@@ -55,7 +55,7 @@
 								<b class="hidden-xs">${user.fullname}</b>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Đăng xuất</a></li>
+								<li><a href="logout">Đăng xuất</a></li>
 							</ul>
 						</div>
 					</li>
@@ -73,7 +73,7 @@
 			<div class="container-fluid">
 				<div class="row bg-title">
 					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-						<h4 class="page-title">Danh sách công việc</h4>
+						<h4 class="page-title">Danh sách công việc của dự án ${job.name}</h4>
 					</div>
 					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
 						<a href="task-add" class="btn btn-sm btn-success">Thêm mới</a>
@@ -90,7 +90,7 @@
 										<tr>
 											<th>STT</th>
 											<th>Tên Công Việc</th>
-											<th>Dự Án</th>
+											<!-- <th>Dự Án</th> -->
 											<th>Người Thực Hiện</th>
 											<th>Ngày Bắt Đầu</th>
 											<th>Ngày Kết Thúc</th>
@@ -103,7 +103,7 @@
 												<tr>
 													<td>${task.id}</td>
 													<td>${task.name}</td>
-													<td></td>
+													<!-- <td></td> -->
 													<td>${task.member.fullname}</td>
 													<td>${task.startDate}</td>
 													<td>${task.endDate}</td>
