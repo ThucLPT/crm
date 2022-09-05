@@ -96,7 +96,7 @@
 											<th>Fullname</th>
 											<th>Email</th>
 											<th>Role</th>
-											<th>#</th>
+											<!-- <th>#</th> -->
 										</tr>
 									</thead>
 									<tbody>
@@ -106,11 +106,11 @@
 												<td>${user.fullname}</td>
 												<td>${user.email}</td>
 												<td>${user.role.description}</td>
-												<td>
+												<!-- <td>
 													<a href="#" class="btn btn-sm btn-primary">Sửa</a>
 													<a href="#" class="btn btn-sm btn-danger">Xóa</a>
 													<a href="user-details.html" class="btn btn-sm btn-info">Xem</a>
-												</td>
+												</td> -->
 											</tr>
 										</c:forEach>
 									</tbody>

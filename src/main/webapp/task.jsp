@@ -95,7 +95,7 @@
 											<th>Ngày Bắt Đầu</th>
 											<th>Ngày Kết Thúc</th>
 											<th>Trạng Thái</th>
-											<th>Hành Động</th>
+											<!-- <th>Hành Động</th> -->
 										</tr>
 									</thead>
 									<tbody>
@@ -108,11 +108,11 @@
 													<td>${task.startDate}</td>
 													<td>${task.endDate}</td>
 													<td>${task.status.name}</td>
-													<td>
+													<!-- <td>
 														<a href="#" class="btn btn-sm btn-primary">Sửa</a>
 														<a href="#" class="btn btn-sm btn-danger">Xóa</a>
 														<a href="#" class="btn btn-sm btn-info">Xem</a>
-													</td>
+													</td> -->
 												</tr>
 										</c:forEach>
 									</tbody>
